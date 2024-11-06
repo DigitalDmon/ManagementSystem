@@ -23,4 +23,9 @@ class EventController
 
         return $this->eventModel->getPaginatedEvents($limit, $offset);
     }
+
+    public function getAllEvents() : array {
+        return $this->eventModel->getAllEvents();
+    }
+
 }

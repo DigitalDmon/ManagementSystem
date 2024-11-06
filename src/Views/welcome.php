@@ -24,6 +24,7 @@ try {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <title>Profile</title>
 </head>
 <body>
@@ -39,16 +40,16 @@ try {
     </nav>
 </header>
 <main>
-    <div>
-        <p>UNIVERSIDAD TECNOLOGICA DE PANAMA</p>
-        <p>FACULTAD DE INGENIERIA EN SISTEMAS COMPUTACIONALES</p>
-        <p>LABORATORIO - PARCIAL</p>
+    <div class="profile-info">
+        <p class="university-name">UNIVERSIDAD TECNOLOGICA DE PANAMA</p>
+        <p class="faculty-name">FACULTAD DE INGENIERIA EN SISTEMAS COMPUTACIONALES</p>
+        <p class="lab-title">LABORATORIO - PARCIAL</p>
         <p>ESTUDIANTE:</p>
-        <p>ELADIO GONZALEZ</p>
+        <p class="student-name">ELADIO GONZALEZ</p>
         <p>FACILITADORA:</p>
-        <p>ING. IRINA FONG</p>
-        <p>DESARROLLO SE SOFTWARE VII</p>
-        <p>1LS132</p>
+        <p class="teacher-name">ING. IRINA FONG</p>
+        <p class="course-info">DESARROLLO SE SOFTWARE VII</p>
+        <p class="course-info">1LS132</p>
     </div>
 </main>
 <footer>

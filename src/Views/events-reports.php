@@ -32,6 +32,7 @@ $events = $eventController->listPaginatedEvents();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <title>Events reports</title>
 </head>
 <body>
@@ -46,41 +47,46 @@ $events = $eventController->listPaginatedEvents();
         </ul>
     </nav>
 </header>
-
 <main>
-    <main>
-        <?php if (count($events) > 0): ?>
-            <table>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Edad</th>
-                    <th>Género</th>
-                    <th>País de Residencia</th>
-                    <th>País de Nacionalidad</th>
-                    <th>Correo</th>
-                    <th>Celular</th>
-                    <th>Observaciones</th>
-                    <th>Temas de Interés</th>
-                </tr>
-                <?php foreach ($events as $event): ?>
+    <div class="content-container">
+        <form action="export-events.php" method="post" class="export-form">
+            <button type="submit" class="export-button">Exportar a Excel</button>
+        </form>
+
+        <div class="events-table-container">
+            <?php if (count($events) > 0): ?>
+                <table class="events-table">
                     <tr>
-                        <td><?= $event["nombre"] ?></td>
-                        <td><?= $event["apellido"] ?></td>
-                        <td><?= $event["edad"] ?></td>
-                        <td><?= $event["genero"] ?></td>
-                        <td><?= $event["pais_residencia"] ?></td>
-                        <td><?= $event["pais_nacionalidad"] ?></td>
-                        <td><?= $event["correo"] ?></td>
-                        <td><?= $event["celular"] ?></td>
-                        <td><?= $event["observaciones"] ?></td>
-                        <td><?= $event["temas_interes"] ?></td>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                        <th>Género</th>
+                        <th>País de Residencia</th>
+                        <th>País de Nacionalidad</th>
+                        <th>Correo</th>
+                        <th>Celular</th>
+                        <th>Observaciones</th>
+                        <th>Temas de Interés</th>
                     </tr>
-                <?php endforeach; ?>
-            </table>
-        <?php else: ?>
-            <p>No se obtuvieron resultados</p>
-        <?php endif; ?>
+                    <?php foreach ($events as $event): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($event["nombre"]) ?></td>
+                            <td><?= htmlspecialchars($event["apellido"]) ?></td>
+                            <td><?= htmlspecialchars($event["edad"]) ?></td>
+                            <td><?= htmlspecialchars($event["genero"]) ?></td>
+                            <td><?= htmlspecialchars($event["pais_residencia"]) ?></td>
+                            <td><?= htmlspecialchars($event["pais_nacionalidad"]) ?></td>
+                            <td><?= htmlspecialchars($event["correo"]) ?></td>
+                            <td><?= htmlspecialchars($event["celular"]) ?></td>
+                            <td><?= htmlspecialchars($event["observaciones"]) ?></td>
+                            <td><?= $event["temas_interes"] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <p class="no-results">No se obtuvieron resultados</p>
+            <?php endif; ?>
+        </div>
 
         <div class="pagination">
             <?php $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; ?>
@@ -89,7 +95,7 @@ $events = $eventController->listPaginatedEvents();
             <?php endif; ?>
             <a href="?page=<?php echo $page + 1; ?>">Siguiente</a>
         </div>
-    </main>
+    </div>
 </main>
 <footer>
     <p>&copy; <?php echo date('Y'); ?> My application. All rights reserved.</p>

@@ -51,11 +51,33 @@ class User
 
     public function updateUser($id, $name, $surname, $username, $identity, $email, $active, $password): void
     {
-        $passwordHash = $this->hasPassSha256($password);
+        // Obtén la información actual del usuario desde la base de datos
+        $currentUser = $this->getUserById($id);
+
+        // Verifica si se proporcionó una nueva contraseña
+        if (!empty($password)) {
+            // Compara el hash de la nueva contraseña con la contraseña actual
+            $newPasswordHash = $this->hasPassSha256($password);
+
+            // Si la nueva contraseña es distinta de la actual, usa el nuevo hash
+            if ($newPasswordHash !== $currentUser['contrasena']) {
+                $passwordHash = $newPasswordHash; // Contraseña actualizada
+            } else {
+                $passwordHash = $currentUser['contrasena']; // Mantener la contraseña existente
+            }
+        } else {
+            // Si no se proporcionó una nueva contraseña, mantener la contraseña existente
+            $passwordHash = $currentUser['contrasena'];
+        }
+
+        // Actualiza los datos del usuario, incluida la contraseña según corresponda
         $stmt = $this->conn->prepare("UPDATE usuarios SET nombre = ?, apellido = ?, usuario = ?, cedula = ?, correo = ?, activo = ?, contrasena = ? WHERE id_usuarios = ?");
         $stmt->bind_param("sssisisi", $name, $surname, $username, $identity, $email, $active, $passwordHash, $id);
         $stmt->execute();
+        $stmt->close();
     }
+
+
 
     private function hasPassSha256($pass): string
     {

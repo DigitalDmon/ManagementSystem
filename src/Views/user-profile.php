@@ -24,6 +24,7 @@ try {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <title>Profile</title>
 </head>
 <body>
@@ -38,35 +39,44 @@ try {
         </ul>
     </nav>
 </header>
-<main>
-    <h1>Welcome <?php echo $_SESSION['user'] ?></h1>
-    <form action="../../src/Controllers/AuthController.php?action=updateProfile" method="POST">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name">
-        <br>
-        <label for="lastname">Apellido:</label>
-        <input type="text" id="lastname" name="lastname">
-        <br>
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username">
-        <br>
-        <label for="identity">Cédula:</label>
-        <input type="text" id="identity" name="identity">
-        <br>
-        <label for="email">Correo:</label>
-        <input type="email" id="email" name="email">
-        <br>
-        <label for="password">Nueva contraseña:</label>
-        <input type="password" id="password" name="password">
-        <br>
-        <?php
-        if (isset($_SESSION['update_message'])) {
-            echo "<p style='color: red'>" . $_SESSION['update_message'] . "</p>";
-            unset($_SESSION['update_message']);
-        }
-        ?>
-        <input type="submit" value="Actualizar">
-    </form>
+<main class="content-container">
+    <div class="profile-container">
+        <h1 class="profile-title">Welcome <?php echo htmlspecialchars($_SESSION['user']); ?></h1>
+        <form action="../../src/Controllers/AuthController.php?action=updateProfile" method="POST" class="profile-form">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Apellido:</label>
+                <input type="text" id="lastname" name="lastname">
+            </div>
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="identity">Cédula:</label>
+                <input type="text" id="identity" name="identity">
+            </div>
+            <div class="form-group">
+                <label for="email">Correo:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Nueva contraseña:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <?php
+            if (isset($_SESSION['update_message'])) {
+                $messageClass = str_contains($_SESSION['update_message'], 'éxito') ? 'success' : 'error';
+                echo "<p class='update-message {$messageClass}'>" . htmlspecialchars($_SESSION['update_message']) . "</p>";
+                unset($_SESSION['update_message']);
+            }
+            ?>
+            <input type="submit" value="Actualizar" class="submit-button">
+        </form>
+    </div>
 </main>
 <footer>
     <p>&copy; <?php date('Y') ?> My application. All rights reserved.</p>
